@@ -73,12 +73,17 @@ public class Menu {
 
 						break;
 					case 2:
+						aux = JOptionPane.showInputDialog("Digite a identificação que deseja alterar: ");
+						int id = Integer.parseInt(aux);
+						userTO.setId(id);
+						
+
 						System.out.println(userDAO.update(userTO));
 
 						break;
 					case 3:
 						aux = JOptionPane.showInputDialog("Digite a identificação que deseja excluir: ");
-						int id = Integer.parseInt(aux);
+						 id = Integer.parseInt(aux);
 						System.out.println(userDAO.deleteUser(id));
 
 						break;
@@ -127,18 +132,21 @@ public class Menu {
 
 						break;
 					case 2:
+						aux = JOptionPane.showInputDialog("Digite a identificação que deseja alterar: ");
+						int id = Integer.parseInt(aux);
+						vt.setId(id);
 						System.out.println(vdao.updateVehicle(vt));
 
 						break;
 					case 3:
 						aux = JOptionPane.showInputDialog("Digite o id que deseja excluir");
-						int id = Integer.parseInt(aux);
+						id = Integer.parseInt(aux);
 						System.out.println(vdao.deleteVehicle(id));
 
 						break;
 					case 4:
 						String placa = JOptionPane.showInputDialog("Digite a placa do veiculo");
-						JOptionPane.showConfirmDialog(null, placa);
+						JOptionPane.showMessageDialog(null, vdao.getByPlaca(placa));
 
 						break;
 

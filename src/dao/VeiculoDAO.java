@@ -30,8 +30,9 @@ public class VeiculoDAO {
 	 * @param login
 	 * @return arraylist do objeto veiculo com todas suas informacoes.
 	 */
-	public ArrayList<VeiculoTO> getByPlaca(String placa) {
+	public String getByPlaca(String placa) {
 		PreparedStatement ps = null;
+		String listaVeiculo = "Busca pela placa do veiculo: " + placa + "\n\n";
 		String sql = "select * from t_sc_veiculo where ds_placa = ?";
 		listaVeiculos = new ArrayList<>();
 		try {
@@ -40,21 +41,21 @@ public class VeiculoDAO {
 			ResultSet rs = ps.executeQuery();
 			
 			if (rs.next()) {
-				veiculo = new VeiculoTO();
-				veiculo.setId(rs.getLong(1));
-				veiculo.setNmVeiculo(rs.getString(2));
-				veiculo.setTipo(rs.getString(3));
-				veiculo.setCor(rs.getString(4));
-				veiculo.setPlaca(rs.getString(5));
-				veiculo.setModelo(rs.getString(6));
-				veiculo.setDsVeiculo(rs.getString(7));
-				veiculo.setTripulantes(rs.getInt(8));
-				listaVeiculos.add(veiculo);
+				listaVeiculo += "id do veiculo: " + rs.getLong(1) + "\n";
+				listaVeiculo += "Nome veiculo: " + rs.getString(2) + "\n";
+				listaVeiculo += "Tipo de veiculo: " + rs.getString(3) + "\n";
+				listaVeiculo += "Cor de veiculo: " + rs.getString(4) + "\n";
+				listaVeiculo += "Modelo: " + rs.getString(6) + "\n";
+				listaVeiculo += "Descricao: " + rs.getString(7) + "\n";
+				listaVeiculo += "Quantidade de tripulantes habituais" + rs.getString(8) + "\n";
+				
+				
+		
 			}
 			con.close();
 			rs.close();
 			ps.close();
-			return listaVeiculos;
+			return listaVeiculo;
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

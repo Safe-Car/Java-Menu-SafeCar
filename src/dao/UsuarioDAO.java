@@ -35,37 +35,31 @@ public class UsuarioDAO {
 	 * @param login
 	 * @return arraylist do objeto usuario com todas suas informacoes.
 	 */
-	public ArrayList<UsuarioTO> getUserById(int id) {
+	public String getUserById(int id) {
 		String sql = "select * from t_sc_usuario where id_usuario = ?";
 		ArrayList<UsuarioTO> listaUsuarios = new ArrayList<>();
+		String listaUser = "Lista do usuario de id: " + id + "\n\n";
 		try {
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setInt(1, id);
 			ResultSet rs= ps.executeQuery();
 			
 			if (rs.next()) {
-				usuario = new UsuarioTO();
-				usuario.setId(rs.getLong(1));
-				usuario.setVeiculo(rs.getLong(2));
-				usuario.setNome(rs.getString(3));
-				usuario.setIdade(rs.getInt(4));
-				usuario.setProfissao(rs.getString(5));
-				usuario.setSalario(rs.getDouble(6));
-				usuario.setRaca(rs.getString(7));
-				usuario.setGenero(rs.getString(8));
-				usuario.setNacionalidade(rs.getString(9));
-				usuario.setTpSanguineo(rs.getString(10));
-				usuario.setLogin(rs.getString(11));
-				usuario.setSenha(rs.getString(12));
-				listaUsuarios.add(usuario);
-				return listaUsuarios;
-				
-			
+				listaUser += "id do veiculo: " + rs.getLong(2) + "\n";
+				listaUser += "Nome: " + rs.getString(3) + "\n";
+				listaUser += "Idade: " + rs.getInt(4) + "\n";
+				listaUser += "Profissao: " + rs.getString(5) + "\n";
+				listaUser += "Salario: " + rs.getDouble(6) + "\n";
+				listaUser += "Raça: " + rs.getString(7) + "\n";
+				listaUser += "Genero: " + rs.getString(8) + "\n";
+				listaUser += "Nacionalidade: " + rs.getString(9) + "\n";
+				listaUser += "Tipo Sanguineo: " + rs.getString(10) + "\n";
+				listaUser += "Login: " + rs.getString(11) + "\n";
+				listaUser += "Senha: " + rs.getString(12) + "\n";
+				return listaUser;
+						
 			}
-			con.close();
-			ps.close();
-			rs.close();
-			return null;
+			return listaUser;
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -201,13 +195,13 @@ public class UsuarioDAO {
 			ps.close();
 			ps2.close();
 			ps3.close();
-			return "ok";
+			return "Excluido com sucesso";
 
 
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return null;
+			return "Erro ao excluir";
 		}
 
 	}
